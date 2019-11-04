@@ -12,9 +12,7 @@ router.get('/', async (req, res) => {
       .limit(limit || 50);
     res.json(accounts);
   } catch (error) {
-    res.status(500).json({
-      message: 'Your request could not be processed ' + error.message
-    });
+    next(error);
   }
 });
 
@@ -23,9 +21,7 @@ router.get('/:id', async (req, res) => {
     const account = await db('accounts').where({ id: req.params.id });
     res.json(account);
   } catch (error) {
-    res.status(500).json({
-      message: 'Your request could not be processed ' + error.message
-    });
+    next(error);
   }
 });
 
@@ -38,9 +34,7 @@ router.post('/', async (req, res) => {
     });
     res.json('New account successfully created with an id of ' + newAccount[0]);
   } catch (error) {
-    res.status(500).json({
-      message: 'Your request could not be processed ' + error.message
-    });
+    next(error);
   }
 });
 
@@ -51,9 +45,7 @@ router.put('/:id', async (req, res) => {
       .update({ name: req.body.name, budget: req.params.budget });
     res.json(updatedAccount + ' Account was updated');
   } catch (error) {
-    res.status(500).json({
-      message: 'Your request could not be processed ' + error.message
-    });
+    next(error);
   }
 });
 
@@ -64,10 +56,14 @@ router.delete('/:id', async (req, res) => {
       .del();
     res.json(deletedAccount + ' rows deleted');
   } catch (error) {
-    res.status(500).json({
-      message: 'Your request could not be processed ' + error.message
-    });
+    next(error);
   }
+});
+
+router.use((err, req, res, next) => {
+  res
+    .status(500)
+    .json({ message: 'Your request could not be processed. ' + err.message });
 });
 
 module.exports = router;
