@@ -2,7 +2,7 @@
 
 ## Find all customers with postal code 1010
 
-<!-- SELECT * from customers where postalcode = 1010; -->
+SELECT \* from customers where postalcode = 1010;
 
 ## Find the phone number for the supplier with the id 11
 
