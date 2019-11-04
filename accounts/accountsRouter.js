@@ -6,7 +6,10 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
-    const accounts = await db('accounts');
+    const { sortby, sortdir, limit } = req.query;
+    const accounts = await db('accounts')
+      .orderBy(sortby || 'id', sortdir || 'asc')
+      .limit(limit || 50);
     res.json(accounts);
   } catch (error) {
     res.status(500).json({
@@ -28,9 +31,10 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
+    const { name, budget } = req.body;
     const newAccount = await db('accounts').insert({
-      name: req.body.name,
-      budget: req.body.budget
+      name,
+      budget
     });
     res.json('New account successfully created with an id of ' + newAccount[0]);
   } catch (error) {
