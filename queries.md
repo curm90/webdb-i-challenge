@@ -38,35 +38,8 @@ where customerid = 92 -->
 
 ## (Stretch) Find a query to discover how many different cities are stored in the Customers table. Repeats should not be double counted
 
+<!-- select distinct city from customers; -->
+
 ## (Stretch) Find all suppliers who have names longer than 20 characters. You can use `length(SupplierName)` to get the length of the name
 
-<!-- select * from customers
-where customerid = 1;
-
-select * from customers
-where city = 'Berlin';
-
-select * from customers
-where city like  'B%';
-
-select * from customers
-where city like 'B%' and customerid < 10;
-
-select * from customers
-where city like 'B%' or customerid >= 10;
-
-select * from customers
-where city like 'B%' and customerid >= 10
-order by city desc;
-
-select * from customers
-where city like 'B%' and customerid >= 10
-order by city desc
-limit 5;
-
-insert into shippers (shippername, phone)
-values ('UPS', '(919) 234-1234');
-
-update shippers
-set phone = '1234567890', shippername = 'UPS unlimited'
-where shipperid = 4; -->
+<!-- select * from suppliers where length(suppliername) > 20; -->
